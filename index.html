@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b20">
+  <title>Shattered Realms — Anime Arena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-mark">SR</div>
+      <div class="brand-copy">
+        <h1>SHATTERED <span>REALMS</span></h1>
+        <p>MASTER YOUR AURA. OWN THE ARENA.</p>
+      </div>
+      <div class="top-actions">
+        <div class="status-pill"><span class="live-dot"></span> TRAINING ARENA</div>
+        <button id="soundBtn" class="icon-btn" aria-label="Toggle sound">♫ Sound: Off</button>
+      </div>
+    </header>
+
+    <section class="game-shell">
+      <div class="hud hud-player">
+        <div class="avatar avatar-player">影</div>
+        <div class="hud-info">
+          <div class="hud-name">SHADOW STRIKER <small>LV. <span id="level">1</span></small></div>
+          <div class="bar-label"><span>HP</span><span id="hpText">100 / 100</span></div>
+          <div class="bar"><div id="hpBar" class="bar-fill hp-fill"></div></div>
+          <div class="bar-label energy-label"><span>AURA</span><span id="energyText">100 / 100</span></div>
+          <div class="bar"><div id="energyBar" class="bar-fill energy-fill"></div></div>
+        </div>
+      </div>
+      <div class="round-info">
+        <span class="eyebrow">ROUND</span>
+        <strong id="roundTimer">01:30</strong>
+        <span id="roundState">FIGHT!</span>
+      </div>
+      <div class="hud hud-enemy">
+        <div class="hud-info">
+          <div class="hud-name enemy-name">CRIMSON RIVAL <small>CPU</small></div>
+          <div class="bar-label"><span>HP</span><span id="enemyHpText">100 / 100</span></div>
+          <div class="bar"><div id="enemyHpBar" class="bar-fill enemy-fill"></div></div>
+          <div class="enemy-status" id="enemyStatus">AWAITING CHALLENGER</div>
+        </div>
+        <div class="avatar avatar-enemy">焔</div>
+      </div>
+
+      <canvas id="arena" width="1000" height="570" aria-label="Shattered Realms game arena"></canvas>
+      <div class="arena-vignette"></div>
+      <div class="center-message" id="centerMessage">
+        <div class="message-kicker">WELCOME, FIGHTER</div>
+        <h2>AWAKEN YOUR AURA</h2>
+        <p>Beat the Crimson Rival. Chain your abilities. Become a legend.</p>
+        <button id="startBtn" class="primary-btn">ENTER THE ARENA <span>➜</span></button>
+      </div>
+      <div class="combat-log" id="combatLog" aria-live="polite">
+        <div><span class="log-dot blue"></span> Welcome to Shattered Realms.</div>
+        <div><span class="log-dot red"></span> Your rival is waiting...</div>
+      </div>
+      <div class="combo" id="combo">COMBO <strong>×0</strong></div>
+      <div class="ability-bar">
+        <button class="ability" data-ability="slash"><span class="key">J</span><span class="ability-icon slash-icon">➤</span><strong>SHADOW SLASH</strong><small>Quick strike · Free</small></button>
+        <button class="ability" data-ability="burst"><span class="key">K</span><span class="ability-icon burst-icon">✦</span><strong>AURA BURST</strong><small>Heavy hit · 25 aura</small></button>
+        <button class="ability" data-ability="nova"><span class="key">L</span><span class="ability-icon nova-icon">✧</span><strong>VOID NOVA</strong><small>Area blast · 45 aura</small></button>
+        <button class="ability" data-ability="dash"><span class="key">SPACE</span><span class="ability-icon dash-icon">〰</span><strong>PHANTOM DASH</strong><small>Dodge · 15 aura</small></button>
+      </div>
+      <div class="mobile-controls">
+        <button id="mobileLeft" aria-label="Move left">◀</button>
+        <button id="mobileAttack" aria-label="Quick attack">J</button>
+        <button id="mobileRight" aria-label="Move right">▶</button>
+      </div>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="info-card">
+        <div class="card-heading"><span class="heading-icon">✦</span><div><h3>YOUR AWAKENING</h3><p>Every hit builds your legend.</p></div></div>
+        <div class="stat-row"><span>Damage dealt</span><strong id="damageStat">0</strong></div>
+        <div class="stat-row"><span>Successful dodges</span><strong id="dodgeStat">0</strong></div>
+        <div class="stat-row"><span>Best combo</span><strong id="bestComboStat">0×</strong></div>
+        <div class="xp-wrap"><div class="xp-label"><span>EXPERIENCE</span><span id="xpText">0 / 100 XP</span></div><div class="bar xp-bar"><div id="xpBar" class="bar-fill xp-fill"></div></div></div>
+      </article>
+      <article class="info-card controls-card">
+        <div class="card-heading"><span class="heading-icon purple">⌨</span><div><h3>CONTROLS</h3><p>Master the flow of battle.</p></div></div>
+        <div class="control-row"><kbd>A</kbd><kbd>D</kbd><span>Move around the arena</span></div>
+        <div class="control-row"><kbd>J</kbd><span>Shadow Slash</span></div>
+        <div class="control-row"><kbd>K</kbd><span>Aura Burst</span></div>
+        <div class="control-row"><kbd>L</kbd><span>Void Nova</span></div>
+        <div class="control-row"><kbd>SPACE</kbd><span>Phantom Dash</span></div>
+      </article>
+      <article class="info-card objective-card">
+        <div class="card-heading"><span class="heading-icon gold">⚡</span><div><h3>THE MISSION</h3><p>One arena. One rival. Your story.</p></div></div>
+        <p class="objective-copy">Defeat the Crimson Rival before the timer runs out. Save your aura for powerful abilities, dodge incoming attacks, and build combos to earn XP.</p>
+        <div class="mission-badges"><span>✦ AURA COMBAT</span><span>✦ LEVEL UP</span><span>✦ BOSS AI</span></div>
+        <button id="restartBtn" class="secondary-btn">↻ RESTART MATCH</button>
+      </article>
+    </section>
+    <footer><span>SHATTERED REALMS</span><span>FAN-MADE ORIGINAL BROWSER GAME · BUILT FOR KEYBOARD & TOUCH</span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
